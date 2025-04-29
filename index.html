@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student form task</title>
+
+    <style>
+        body {
+            text-align: center;
+
+        }
+
+        table {
+            margin: auto;
+            border-collapse: collapse;
+
+        }
+
+        th,
+        td {
+            padding: 7px;
+            border: 1px black solid;
+        }
+
+        #course {
+            width: 100%;
+            padding: 5px;
+
+        }
+
+        button {
+            width: 100%;
+            padding: 5px;
+            background-color: green;
+            color: white;
+        }
+        
+        .deletebtn{
+            background-color: red;
+            padding: 5px;
+            color: white;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Student Form</h1>
+    <div class="form-container">
+
+        <table border="">
+            <tr>
+                <td>
+                    <label for="fname">Name</label>
+                </td>
+                <td>
+                    <input type="text" id="inputname" placeholder="Enter your Name">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="age">Age</label>
+                </td>
+                <td>
+                    <input type="age" id="inputage" placeholder="Enter your Age">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="gender">Gender</label>
+                </td>
+                <td>
+                    <input type="radio" name="gender" id="male">Male
+                    <input type="radio" name="gender" id="female">Female
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="course">Course</label>
+                </td>
+                <td>
+                    <select id="course">
+                        <option value="Javascript">JavaScript</option>
+                        <option value="Python">Python</option>
+                        <option value="Java">Java</option>
+                        <option value="Angular">Angular</option>
+                        <option value="vuejs">vueJs</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Email
+                </td>
+                <td>
+                    <input type="email" name="email" id="inputemail" placeholder="Enter your E-mail">
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <button id="savebtn" onclick="addstudent()">Save</button>
+                </td>
+            </tr>
+
+        </table>
+
+    </div>
+    <br><br>
+
+    <table id="studentTable">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Age</th>
+                <th>Gender</th>
+                <th>Course</th>
+                <th>E-mail</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Data will be add here -->
+        </tbody>
+    </table>
+</body>
+
+<script>
+    // Selecting all input feilds
+    function addstudent() {
+        var name = document.getElementById("inputname").value;
+        var age = document.getElementById("inputage").value;
+        var course = document.getElementById("course").value;
+        var email = document.getElementById("inputemail").value;
+
+        //Gender value
+        var gender = "";
+        if (document.getElementById("male").checked) {
+            gender = "male";
+        } else if (document.getElementById("female").checked) {
+            gender = "female";
+        }
+
+        //Simple validation 
+        if (name == "" || age == "" || gender == "" || course == "" || email == "") {
+            alert("Please fill all the fields");
+        return;
+        }
+
+        //Add rows to table
+        var table = document.getElementById("studentTable").getElementsByTagName("tbody")[0];
+        var newRow = table.insertRow();
+
+        newRow.insertCell(0).innerText = name;
+        newRow.insertCell(1).innerText = age;
+        newRow.insertCell(2).innerText = gender;
+        newRow.insertCell(3).innerText = course;
+        newRow.insertCell(4).innerText = email;
+
+        //Action button
+        var action = newRow.insertCell(5);
+        var deleteBtn = document.createElement("button")
+        deleteBtn.innerText = "Delete"
+        deleteBtn.className = "deletebtn"
+        deleteBtn.onclick = function(){
+            table.deleteRow(newRow.rowIndex - 1);
+        }
+        action.appendChild(deleteBtn);
+
+        //Clear form
+        document.getElementById("inputname").value = "";
+        document.getElementById("inputage").value = "";
+        document.getElementById("male").checked = false;
+        document,getElementById("female").checked = false;
+        document.getElementById("course").value = "JavaScript";
+        document.getElementById("inputemail").value = "";
+
+    }
+
+</script>
+
+
+</html>
