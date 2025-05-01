@@ -46,5 +46,4 @@ function addstudent() {
     document,getElementById("female").checked = false;
     document.getElementById("course").value = "JavaScript";
     document.getElementById("inputemail").value = "";
-
 }
